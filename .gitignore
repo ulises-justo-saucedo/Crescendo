@@ -1,0 +1,81 @@
+# Archivos y carpetas específicas de Android Studio
+*.iml
+.gradle
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+
+# Archivos generados por el sistema operativo
+.DS_Store
+Thumbs.db
+
+# Archivos y carpetas de compilación
+/build
+/captures
+/.cxx
+.externalNativeBuild
+
+# Carpetas de pruebas
+src/test/
+/src/androidTest/
+
+# Archivos temporales de Kotlin/JS
+/out
+
+# Archivos de configuración específicos del desarrollador
+.idea/
+
+# Configuración de Run/Debug específica de cada desarrollador
+.idea/runConfigurations/
+
+# Configuración de Android NDK
+**/obj/
+
+# Archivos de registro y depuración
+*.log
+
+# Archivos creados por IntelliJ
+*.idea/misc.xml
+*.idea/modules.xml
+*.idea/vcs.xml
+
+# Caches de gradle
+.gradle/
+
+# Archivos de compilación intermedios
+/intermediates/
+/instant-run/
+
+# Archivos específicos del sistema operativo
+*.swp
+*.swo
+*.swn
+*.bak
+
+# Otros
+*.keystore
+*.jks
+*.apk
+*.ap_
+
+# Archivos creados por Lint
+lint/intermediates/
+/lint/generated/
+
+# Archivos generados por el IDE durante la indexación
+.idea/index-layout.xml
+.idea/workspace.xml
+.idea/gradle.xml
+
+# Archivos de configuración del entorno de ejecución
+.idea/jarRepositories.xml
+.idea/uiDesigner.xml
+.idea/vcs.xml
+
+# Entradas específicas de la herramienta de generación
+build/
+/app/build/
