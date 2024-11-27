@@ -1,4 +1,7 @@
 plugins {
+    kotlin("plugin.serialization") version "2.0.21" // serialization plugin for navigation route objects
+
+    alias(libs.plugins.compose.compiler)
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
 }
@@ -39,9 +42,6 @@ android {
     buildFeatures {
         compose = true
     }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
-    }
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -50,6 +50,8 @@ android {
 }
 
 dependencies {
+    implementation(libs.navigation.compose) //navigation between activities dependency
+    implementation(libs.kotlinx.serialization.json) // dependency needed for serialization plugin
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
