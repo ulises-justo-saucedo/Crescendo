@@ -9,10 +9,10 @@ import androidx.compose.runtime.getValue
 
 @Composable
 fun MainScreen(mainViewModel: MainViewModel){
-    val mediaPlayersAreLoaded by mainViewModel.mediaPlayersAreLoaded.collectAsState()
+    val mediaPlayerState by mainViewModel.mediaPlayerState.collectAsState()
     Column {
-        when(mediaPlayersAreLoaded) {
-            true -> Text(text = "MediaPlayers loaded!")
+        when(mediaPlayerState.mediaPlayersAreLoaded) {
+            true -> Text(text = "MediaPlayers loaded! Found ${mediaPlayerState.mediaPlayers.size} songs")
             false -> Text(text = "Loading MediaPlayers . . .")
         }
     }
