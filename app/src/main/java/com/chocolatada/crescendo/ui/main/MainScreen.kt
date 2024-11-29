@@ -8,11 +8,12 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 
 @Composable
-fun MainScreen(mainViewModel: MainViewModel, onClick: () -> Unit){
+fun MainScreen(mainViewModel: MainViewModel){
     val mediaPlayersAreLoaded by mainViewModel.mediaPlayersAreLoaded.collectAsState()
     Column {
-        Button(onClick = onClick) {
-            Text(text = "Return to Launch Activity ! ! !")
+        when(mediaPlayersAreLoaded) {
+            true -> Text(text = "MediaPlayers loaded!")
+            false -> Text(text = "Loading MediaPlayers . . .")
         }
     }
 }

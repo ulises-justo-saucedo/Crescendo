@@ -1,6 +1,7 @@
 package com.chocolatada.crescendo.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -22,11 +23,8 @@ fun Navigation(appHasPermissions: () -> Boolean, requestPermissions: () -> Unit)
             }
         }
         composable<Main> {
-            // TODO: Implement Dagger Hilt for dependency injection
-            val mainViewModel: MainViewModel = viewModel()
-            MainScreen(mainViewModel) {
-                navController.popBackStack()
-            }
+            val mainViewModel: MainViewModel = hiltViewModel()
+            MainScreen(mainViewModel)
         }
     }
 }
