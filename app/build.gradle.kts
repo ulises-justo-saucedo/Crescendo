@@ -12,7 +12,7 @@ android {
 
     defaultConfig {
         applicationId = "com.chocolatada.crescendo"
-        minSdk = 24
+        minSdk = 29
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
