@@ -15,13 +15,13 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     @ApplicationContext context: Context
 ): ViewModel() {
-    private val _songState = MutableStateFlow(MediaPlayerState())
-    val songState: StateFlow<MediaPlayerState> = _songState
+    private val _songState = MutableStateFlow(SongState())
+    val songState: StateFlow<SongState> = _songState
 
     init {
         viewModelScope.launch {
             val songs = MP3Reader.getAllSongsFromStorage(context)
-            _songState.value = MediaPlayerState(true, songs)
+            _songState.value = SongState(true, songs)
         }
     }
 }

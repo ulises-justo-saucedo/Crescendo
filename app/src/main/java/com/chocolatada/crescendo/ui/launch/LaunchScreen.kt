@@ -1,11 +1,13 @@
 package com.chocolatada.crescendo.ui.launch
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -29,17 +31,28 @@ fun LaunchScreen(onStartNowClick: () -> Unit){
         modifier = Modifier.fillMaxSize(),
         contentScale = ContentScale.FillBounds
     )
-    Column(modifier = Modifier.fillMaxSize()) {
-        CustomText(
-            text = "Crescendo",
-            fontSize = 60.sp,
-            topPadding = 60.dp
-        )
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.SpaceBetween
+    ) {
+        Column {
+            CustomText(
+                text = "Crescendo",
+                fontSize = 60.sp,
+                topPadding = 40.dp
+            )
+            CustomText(
+                text = "Harmonize your world with the music you love. Everything in just one touch.",
+                fontSize = 30.sp,
+                topPadding = 0.dp
+            )
+        }
         Button(
             onClick = onStartNowClick,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 360.dp)
+                .padding(bottom = 60.dp),
+            colors = ButtonColors(Color.DarkGray, Color.White, Color.Red, Color.White)
         ) {
             CustomText(
                 text = "Start now!",
@@ -47,11 +60,6 @@ fun LaunchScreen(onStartNowClick: () -> Unit){
                 topPadding = 0.dp
             )
         }
-        CustomText(
-            text = "Harmonize your world with the music you love. Everything in just one touch.",
-            fontSize = 20.sp,
-            topPadding = 0.dp
-        )
     }
 }
 
