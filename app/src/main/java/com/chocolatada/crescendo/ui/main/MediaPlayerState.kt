@@ -1,8 +1,8 @@
 package com.chocolatada.crescendo.ui.main
 
-import android.media.MediaPlayer
+import com.chocolatada.crescendo.audio.Song
 
 data class MediaPlayerState(
     val mediaPlayersAreLoaded: Boolean = false,
-    val mediaPlayers: List<MediaPlayer> = emptyList()
+    val songs: List<Song> = emptyList()
 )
