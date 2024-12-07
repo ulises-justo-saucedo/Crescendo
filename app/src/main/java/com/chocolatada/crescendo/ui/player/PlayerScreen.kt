@@ -38,6 +38,8 @@ import com.chocolatada.crescendo.audio.Song
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
+import java.time.LocalTime
+import kotlin.time.Duration.Companion.minutes
 
 @Composable
 fun PlayerScreen(
@@ -56,6 +58,16 @@ fun PlayerScreen(
     var songStopped by remember { mutableStateOf(false) }
     var currentSongTimer by remember { mutableFloatStateOf(0f) }
     val songDurationInSeconds = song.duration / 1000
+    val songTimer = remember {
+        SongTimer(
+            0, 0
+        )
+    }
+    val finalSongTimer = remember {
+        SongTimer(
+            0, 0
+        )
+    }
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -67,21 +79,21 @@ fun PlayerScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Image(
-            painter = painterResource(id = R.drawable.bc_launch),
+            painter = painterResource(id = R.drawable.img_player),
             contentDescription = null,
             modifier = Modifier.padding(bottom = 15.dp)
         )
-        MyFloatingActionButton(songStarted) {
-            songStarted = !songStarted
-            songStopped = !songStopped
-        }
         Row {
-            Text(text = "${currentSongTimer.toInt()}")
+            Text(text = "$songTimer")
             MyLinearProgressIndicator(
                 songDurationInSeconds = songDurationInSeconds,
                 currentSongTimer = currentSongTimer
             )
-            Text(text = "$songDurationInSeconds")
+            Text(text = "$finalSongTimer")
+        }
+        MyFloatingActionButton(songStarted) {
+            songStarted = !songStarted
+            songStopped = !songStopped
         }
     }
     BackHandler {
@@ -92,10 +104,12 @@ fun PlayerScreen(
     // thread related to linearprogression's modifier
     LaunchedEffect(Unit) {
         withContext(Dispatchers.IO) {
+            finalSongTimer.calculateFinalTime(songDurationInSeconds.toInt())
             while (userIsInThisScreen) {
                 while (userIsInThisScreen && songStarted && currentSongTimer < songDurationInSeconds) {
                     delay(1000)
                     currentSongTimer += 1f
+                    songTimer.addOneSecond()
                 }
                 if (currentSongTimer >= songDurationInSeconds) {
                     songStarted = false
@@ -159,6 +173,6 @@ fun MyLinearProgressIndicator(
 ) {
     LinearProgressIndicator(
         progress = { currentSongTimer / songDurationInSeconds },
-        modifier = Modifier.height(15.dp)
+        modifier = Modifier.height(5.dp).padding(start = 10.dp, end = 10.dp)
     )
 }
