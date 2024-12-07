@@ -38,12 +38,7 @@ class MP3Reader {
                         val displayName = cursor.getString(displayNameIndex)
                         val duration = cursor.getLong(durationIndex)
 
-                        val contentUri = ContentUris.withAppendedId(
-                            MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
-                            id
-                        )
-
-                        val song = Song(contentUri, displayName, duration)
+                        val song = Song(id, displayName, duration)
 
                         songs.add(song)
                     }

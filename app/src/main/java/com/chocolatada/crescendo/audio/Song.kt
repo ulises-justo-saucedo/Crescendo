@@ -1,9 +1,10 @@
 package com.chocolatada.crescendo.audio
 
-import android.net.Uri
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class Song(
-    val contentUri: Uri,
+    val id: Long,
     val name: String,
     val duration: Long,
 )
