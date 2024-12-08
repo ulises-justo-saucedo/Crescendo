@@ -4,17 +4,23 @@ import android.content.ContentUris
 import android.media.MediaPlayer
 import android.provider.MediaStore
 import androidx.activity.compose.BackHandler
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Text
@@ -32,9 +38,16 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.chocolatada.crescendo.R
 import com.chocolatada.crescendo.audio.Song
+import com.chocolatada.crescendo.ui.theme.Brown
+import com.chocolatada.crescendo.ui.theme.White
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
@@ -71,18 +84,35 @@ fun PlayerScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(context.getColor(R.color.brown)))
+            .background(Brown)
     )
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        Button(
+            onClick = {
+                userIsInThisScreen = false
+                songStarted = false
+                onNavigateToMain()
+            },
+            colors = ButtonDefaults.buttonColors(White),
+            modifier = Modifier.padding(top = 15.dp)
+        ) {
+            Text(
+                text = "Go back to main screen",
+                fontSize = 20.sp,
+                color = Brown,
+                fontFamily = FontFamily(Font(R.font.mainfont))
+            )
+        }
         Image(
             painter = painterResource(id = R.drawable.img_player),
             contentDescription = null,
             modifier = Modifier.padding(bottom = 15.dp)
         )
+        DisplaySongName(song.name)
         Row {
             Text(text = "$songTimer")
             MyLinearProgressIndicator(
@@ -149,12 +179,56 @@ fun PlayerScreen(
 }
 
 @Composable
+fun DisplaySongName(songName: String) {
+    val horizontalScroll = rememberScrollState()
+
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .horizontalScroll(horizontalScroll, false)
+            .padding(top = 15.dp, bottom = 15.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ){
+        Text(
+            text = songName,
+            fontSize = 30.sp,
+            modifier = Modifier
+                .fillMaxWidth(),
+            maxLines = 1,
+            softWrap = false,
+            overflow = TextOverflow.Ellipsis,
+            color = White,
+            fontFamily = FontFamily(Font(R.font.mainfont))
+        )
+    }
+
+    LaunchedEffect(Unit) {
+        withContext(Dispatchers.Main) {
+            var i = 0
+            val tween = tween<Float>(durationMillis = 1)
+            while(true) {
+                while(horizontalScroll.canScrollForward) {
+                    i += 3
+                    horizontalScroll.animateScrollTo(i, tween)
+                }
+                delay(1000)
+                while(horizontalScroll.canScrollBackward) {
+                    i -= 3
+                    horizontalScroll.animateScrollTo(i, tween)
+                }
+                delay(1000)
+            }
+        }
+    }
+}
+
+@Composable
 fun MyFloatingActionButton(songStarted: Boolean, onClick: () -> Unit) {
     val imageVectorPlay = ImageVector.vectorResource(id = R.drawable.play)
     val imageVectorPause = ImageVector.vectorResource(id = R.drawable.pause)
     FloatingActionButton(
         shape = CircleShape,
-        containerColor = Color.White,
+        containerColor = White,
         modifier = Modifier.padding(bottom = 15.dp),
         onClick = onClick
     ) {
@@ -173,6 +247,8 @@ fun MyLinearProgressIndicator(
 ) {
     LinearProgressIndicator(
         progress = { currentSongTimer / songDurationInSeconds },
-        modifier = Modifier.height(5.dp).padding(start = 10.dp, end = 10.dp)
+        modifier = Modifier
+            .height(5.dp)
+            .padding(start = 10.dp, end = 10.dp)
     )
 }

@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.chocolatada.crescendo.R
+import com.chocolatada.crescendo.ui.theme.White
 
 @Composable
 fun LaunchScreen(onStartNowClick: () -> Unit){
@@ -52,7 +53,7 @@ fun LaunchScreen(onStartNowClick: () -> Unit){
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 60.dp),
-            colors = ButtonColors(Color.DarkGray, Color.White, Color.Red, Color.White)
+            colors = ButtonColors(Color.DarkGray, White, Color.Red, White)
         ) {
             CustomText(
                 text = "Start now!",
@@ -71,7 +72,7 @@ fun CustomText(text: String, fontSize: TextUnit, topPadding: Dp){
         modifier = Modifier
             .fillMaxWidth()
             .padding(top = topPadding),
-        color = Color.White,
+        color = White,
         fontSize = fontSize,
         fontFamily = FontFamily(Font(R.font.mainfont))
     )

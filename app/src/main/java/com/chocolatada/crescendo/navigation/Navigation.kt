@@ -36,9 +36,7 @@ fun Navigation(appHasPermissions: () -> Boolean, requestPermissions: () -> Unit)
         composable<Player> {
             val song: Song = it.toRoute()
             PlayerScreen(song = song) {
-                navController.navigate(Main) {
-                    popUpTo<Main> { inclusive = true }
-                }
+                navController.popBackStack()
             }
         }
     }

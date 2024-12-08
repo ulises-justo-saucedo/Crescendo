@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Crescendo</string>
+    <string name="title_activity_launch_screen">LaunchScreen</string>
 </resources>

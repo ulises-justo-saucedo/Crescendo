@@ -43,6 +43,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.chocolatada.crescendo.R
 import com.chocolatada.crescendo.audio.Song
+import com.chocolatada.crescendo.ui.theme.Brown
+import com.chocolatada.crescendo.ui.theme.White
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
@@ -59,7 +61,7 @@ fun MainScreen(mainViewModel: MainViewModel, onPlaySong: (Long, String, Long) ->
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(LocalContext.current.getColor(R.color.brown)))
+            .background(Brown)
     )
     if(songState.songsAreLoaded) {
         LazyColumn {
@@ -96,14 +98,14 @@ fun MainScreen(mainViewModel: MainViewModel, onPlaySong: (Long, String, Long) ->
             Text(
                 text = "Loading mp3 files. Please, wait . . .",
                 textAlign = TextAlign.Center,
-                color = Color.White,
+                color = White,
                 fontSize = 30.sp,
                 fontFamily = FontFamily(Font(R.font.mainfont))
             )
             CircularProgressIndicator(
                 modifier = Modifier.size(60.dp),
-                color = Color(LocalContext.current.getColor(R.color.brown)),
-                trackColor = Color.White
+                color = Brown,
+                trackColor = White
             )
         }
     }
@@ -126,7 +128,7 @@ fun DisplaySongName(songName: String) {
             maxLines = 1,
             softWrap = false,
             overflow = TextOverflow.Ellipsis,
-            color = Color.White,
+            color = White,
             fontFamily = FontFamily(Font(R.font.mainfont))
         )
     }
@@ -160,7 +162,7 @@ fun DisplayPlayButton(
 ) {
     FloatingActionButton(
         shape = CircleShape,
-        containerColor = Color.White,
+        containerColor = White,
         modifier = Modifier
             .size(50.dp),
         onClick = { onPlaySong(id, displayName, songDuration) }
